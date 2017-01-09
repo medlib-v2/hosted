@@ -14,8 +14,8 @@ class Hosted
 
     # Configure The Box
     config.vm.define settings["name"] ||= "Hosted"
-    config.vm.box = settings["box"] ||= "medlib/hosted"
-    config.vm.box_version = settings["version"] ||= ">= 1.0.0"
+    config.vm.box = settings["box"] ||= "eldorplus/medlib"
+    config.vm.box_version = settings["version"] ||= ">= 0.0.2"
     config.vm.hostname = settings["hostname"] ||= "hosted"
 
     # Configure A Private Network IP
@@ -162,7 +162,7 @@ class Hosted
 
     if settings.include? 'sites'
       settings["sites"].each do |site|
-        type = site["type"] ||= "laravel"
+        type = site["type"] ||= "medlib"
 
         if (site.has_key?("hhvm") && site["hhvm"])
           type = "hhvm"

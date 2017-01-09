@@ -7,8 +7,8 @@ require 'yaml'
 VAGRANTFILE_API_VERSION ||= "2"
 confDir = $confDir ||= File.expand_path("~/.hosted")
 
-HostedYamlPath = confDir + "/Hosted.yaml"
-HostedJsonPath = confDir + "/Hosted.json"
+hostedYamlPath = confDir + "/Hosted.yaml"
+hostedJsonPath = confDir + "/Hosted.json"
 afterScriptPath = confDir + "/after.sh"
 aliasesPath = confDir + "/aliases"
 
@@ -24,10 +24,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
     end
 
-    if File.exist? HostedYamlPath then
-        settings = YAML::load(File.read(HostedYamlPath))
-    elsif File.exist? HostedJsonPath then
-        settings = JSON.parse(File.read(HostedJsonPath))
+    if File.exist? hostedYamlPath then
+        settings = YAML::load(File.read(hostedYamlPath))
+    elsif File.exist? hostedJsonPath then
+        settings = JSON.parse(File.read(hostedJsonPath))
     end
 
     Hosted.configure(config, settings)
@@ -38,5 +38,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     if defined? VagrantPlugins::HostsUpdater
         config.hostsupdater.aliases = settings['sites'].map { |site| site['map'] }
+    end
+
+    if Vagrant.has_plugin? 'vagrant-hostmanager'
+        config.hostmanager.enabled = true
+        config.hostmanager.manage_host = true
+        #config.hostmanager = settings['sites'].map { |site| site['map'] }
+        config.vm.provision :hostmanager
     end
 end
