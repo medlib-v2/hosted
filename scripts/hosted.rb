@@ -208,6 +208,13 @@ class Hosted
       end
     end
 
+    # Install MongoDB If Necessary
+    if settings.has_key?("mongodb") && settings["mongodb"]
+      config.vm.provision "shell" do |s|
+        s.path = scriptDir + "/install-mongo.sh"
+      end
+    end
+
 
     # Configure All Of The Configured Databases
     if settings.has_key?("databases")
@@ -222,6 +229,14 @@ class Hosted
             s.name = "Creating Postgres Database: " + db
             s.path = scriptDir + "/create-postgres.sh"
             s.args = [db]
+          end
+
+          if settings.has_key?("mongodb") && settings["mongodb"]
+            config.vm.provision "shell" do |s|
+              s.name = "Creating Mongo Database: " + db
+              s.path = scriptDir + "/create-mongo.sh"
+              s.args = [db]
+            end
           end
         end
     end
