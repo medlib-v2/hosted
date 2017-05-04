@@ -1,0 +1,76 @@
+---
+# Name of VM
+name: hosted
+
+# Enable GUI mode (show screen of VM)
+gui: false
+
+ip: "192.168.127.13"
+
+# memory (in MB):
+#   auto -> 1/4 of system RAM
+#   1536 -> 1.5 GB RAM
+memory: 2048
+
+# cpu:
+#   auto -> max number of CPU cores
+#      1 -> 1 CPU cores
+cpus: 1
+
+# vram (in MB):
+#   video memory (currently vbox only)
+vram: 100
+
+provider: virtualbox
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    - map: ~/sites
+      to: /home/vagrant/sites
+
+# Sites configuration.
+#
+# You can use the "type" parameter to specify the type
+# of Nginx configuration for the site. For example:
+#
+# - map:  laravel.app
+#   to:   /home/vagrant/sites/laravel/public
+#   type: spa
+#
+# The default type is "laravel".
+#
+# If the desired type is not allowed "laravel" will be used as fallback.
+#
+# Available types:
+#   - laravel
+#   - slayer
+#   - phanbook
+#   - proxy
+#   - spa
+#   - silverstripe
+#   - symfony2
+#   - statamic
+#   - phalcon
+sites:
+    - map: medlib.app
+      to: /home/vagrant/sites/medlib/public
+
+databases:
+    - medlib
+
+# blackfire:
+#     - id: foo
+#       token: bar
+#       client-id: foo
+#       client-token: bar
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp

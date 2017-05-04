@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+PURPLE="\033[0;35m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+NC="\033[0m"
+
+[ -r /etc/lsb-release ] && . /etc/lsb-release
+
+if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then
+	# Fall back to using the very slow lsb_release utility
+	DISTRIB_DESCRIPTION=$(lsb_release -s -d)
+fi
+
+read -d '' banner <<"BLOCK"
+    Thank you for using Hosted Box!
+    We hope that Hosted Box helps to make your life easier.
+
+    In case of problems:    https://github.com/eldorplus/hosted/issues
+    Questions should go to: https://forum.hosted.fr
+    Documentation:          https://docs.hosted.fr
+BLOCK
+
+printf "\n"
+printf "    ${YELLOW}Welcome to Hosted Box${NC}\n"
+printf "\n"
+printf "    Hosted Box:            %s\n" $(cd /vagrant; git describe --tags --abbrev=0)
+printf "    Distrib:               %s (%s %s %s)\n" "$DISTRIB_DESCRIPTION" "$(uname -o)" "$(uname -r)" "$(uname -m)"
+printf "    Zephir:                v%s\n" $(zephir version)
+printf "    PHP:                   v%s\n" $(php -v | head -n 1 | cut -d ' ' -f 2 | cut -d '-' -f 1)
+printf "    Medlib Application:    v%s\n" $(php -r 'echo Medlib\Version::get();')
+printf "\n"
+printf "    %s" "$banner"
+printf "\n\n"
+

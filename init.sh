@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-hostedRoot=~/.hosted
+if [[ -n "$1" ]]; then
+    cp -i command/resources/Settings.json Settings.json
+else
+    cp -i command/resources/Settings.yaml Settings.yaml
+fi
 
-mkdir -p "$hostedRoot"
+cp -i command/resources/after.sh after.sh
+cp -i command/resources/aliases aliases
 
-cp -i command/src/stubs/Hosted.yaml "$hostedRoot/Hosted.yaml"
-cp -i command/src/stubs/after.sh "$hostedRoot/after.sh"
-cp -i command/src/stubs/aliases "$hostedRoot/aliases"
-
-echo "Hosted initialized!"
+echo "Hosted Box initialized!"

@@ -1,0 +1,28 @@
+{
+  "name": "hosted",
+  "gui": false,
+  "ip": "192.168.127.13",
+  "memory": 2048,
+  "cpus": 1,
+  "vram": 100,
+  "provider": "virtualbox",
+  "authorize": "~/.ssh/id_rsa.pub",
+  "keys": [
+    "~/.ssh/id_rsa"
+  ],
+  "folders": [
+    {
+      "map": "~/sites",
+      "to": "/home/vagrant/sites"
+    }
+  ],
+  "sites": [
+    {
+      "map": "medlib.app",
+      "to": "/home/vagrant/sites/medlib/public"
+    }
+  ],
+  "databases": [
+    "medlib"
+  ]
+}

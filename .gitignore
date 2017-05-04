@@ -1,4 +1,7 @@
-/vendor
 /.vagrant
 /.idea
 package.box
+after.sh
+aliases
+Settings.yaml
+Vagrantfile2

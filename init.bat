@@ -1,12 +1,13 @@
 @echo off
 
-set hostedRoot=%HOMEDRIVE%%HOMEPATH%\.hosted
+if ["%~1"]==["json"] (
+    copy /-y command\resources\Settings.json Settings.json
+)
+if ["%~1"]==[""] (
+    copy /-y command\resources\Settings.yaml Settings.yaml
+)
 
-mkdir "%hostedRoot%"
+copy /-y command\resources\after.sh after.sh
+copy /-y command\resources\aliases aliases
 
-copy /-y command\src\stubs\Hosted.yaml "%hostedRoot%\Hosted.yaml"
-copy /-y command\src\stubs\after.sh "%hostedRoot%\after.sh"
-copy /-y command\src\stubs\aliases "%hostedRoot%\aliases"
-
-set hostedRoot=
-echo Hosted initialized!
+echo Hosted Box initialized!

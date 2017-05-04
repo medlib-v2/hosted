@@ -1,0 +1,26 @@
+[req]
+prompt = no
+default_bits = 4096
+default_keyfile = {{.Env.TPL_SSL_KEY}}
+encrypt_key = no
+default_md = sha256
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca
+
+[req_distinguished_name]
+O = Vagrant
+C = UN
+CN = {{.Env.TPL_SITE}}
+
+[v3_ca]
+basicConstraints = CA:FALSE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid, issuer
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alternate_names
+
+[alternate_names]
+DNS.1 = www.{{.Env.TPL_SITE}}
+DNS.2 = {{.Env.TPL_SITE}}
+DNS.3 = *.{{.Env.TPL_SITE}}
+DNS.4 = *.*.{{.Env.TPL_SITE}}

@@ -1,0 +1,9 @@
+[blackfire]
+ca-cert=
+collector=https://blackfire.io
+log-file=stderr
+log-level=1
+server-id="{{.Env.TPL_BLACKFIRE_ID}}"
+server-token="{{.Env.TPL_BLACKFIRE_TOKEN}}"
+socket=unix:///var/run/blackfire/agent.sock
+spec=
