@@ -78,7 +78,7 @@ class Hosted
 
   # Configure The Box
   def init_box
-    config.vm.define settings['name']
+    config.vm.define = settings['name']
     config.vm.box = settings['box']
     config.vm.box_version = settings['version']
     config.vm.hostname = settings['hostname']
